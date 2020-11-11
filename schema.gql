@@ -63,6 +63,21 @@ type Deceased {
   town: String
 }
 
+"""Church service/Farewell service"""
+type Farewell {
+  address: String
+  carrying: String
+  date: DateTime
+  details: String
+  location: String
+  numberOfCarriers: String
+  parkingSpaces: String
+  pastor: String
+  place: String
+  postalCode: String
+  startTime: String
+}
+
 """Final care of deceased person"""
 type FinalCare {
   clothes: String
@@ -82,11 +97,12 @@ type Funeral {
   circumstances: Circumstances
   client: Client
   deceased: Deceased
+  farewell: Farewell
   finalcare: FinalCare
   id: ID!
   insurances: [Insurance!]
   lastCreationStep: Float
-  transmission: Transmission
+  transmissions: [Transmission!]
 }
 
 """Insurance object"""
@@ -107,10 +123,11 @@ type Mutation {
   register(input: RegisterInput!): Account
   saveCircumstances(circumstances: PersistCircumstancesInput!, funeralId: String!): Circumstances!
   saveClient(client: PersistClientInput!, funeralId: String!): Client!
+  saveFarewell(farewell: PersistFarewellServiceInput!, funeralId: String!): Farewell!
   saveFinalCare(finalcare: PersistFinalCareInput!, funeralId: String!): FinalCare!
   saveInsurances(funeralId: String!, insurances: [PersistInsuranceInput!]!): Boolean!
   savePersonalia(funeralId: String!, personalia: PersistDeceasedInput!): Deceased!
-  saveTransmission(funeralId: String!, transmission: PersistTransmissionInput!): Transmission!
+  saveTransmissions(funeralId: String!, transmissions: [PersistTransmissionInput!]!): Boolean!
 }
 
 """Circumstances of death"""
@@ -158,6 +175,21 @@ input PersistDeceasedInput {
   town: String
 }
 
+"""Church service/Farewell service"""
+input PersistFarewellServiceInput {
+  address: String
+  carrying: String
+  date: DateTime
+  details: String
+  location: String
+  numberOfCarriers: String
+  parkingSpaces: String
+  pastor: String
+  place: String
+  postalCode: String
+  startTime: String
+}
+
 """Final care of deceased person"""
 input PersistFinalCareInput {
   clothes: String
@@ -169,7 +201,15 @@ input PersistFinalCareInput {
   makeFingerprint: String
   makeUpHairstyleWishes: String
   wishesJewelryGlasses: String
+}
 
+"""Insurance object"""
+input PersistInsuranceInput {
+  company: String
+  policynumber: String
+}
+
+"""Transmission object"""
 input PersistTransmissionInput {
   by: String
   date: DateTime
@@ -181,22 +221,17 @@ input PersistTransmissionInput {
   toPlace: String
 }
 
-"""Insurance object"""
-input PersistInsuranceInput {
-  company: String
-  policynumber: String
-}
-
 type Query {
   circumstances(id: String!): Circumstances
   client(id: String!): Client
+  farewell(id: String!): Farewell
   finalcare(id: String!): FinalCare
   funeral(id: String): Funeral
   funerals: [Funeral!]!
   insurances(id: String!): [Insurance!]
   loggedIn: Account!
   personalia(id: String!): Deceased
-  transmission(id: String!): Transmission
+  transmissions(id: String!): [Transmission!]
 }
 
 input RegisterInput {
@@ -206,7 +241,7 @@ input RegisterInput {
   password: String!
 }
 
-"""The transmission model"""
+"""Transmission object"""
 type Transmission {
   by: String
   date: DateTime

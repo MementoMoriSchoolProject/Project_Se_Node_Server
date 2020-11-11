@@ -8,6 +8,7 @@ import { Client } from './client'
 import { Transmission } from './transmission';
 import { Insurance } from './insurance';
 import { FinalCare } from './finalcare';
+import { Farewell } from './farewell';
 
 @ObjectType({ description: 'The funeral model' })
 export class Funeral {
@@ -37,6 +38,10 @@ export class Funeral {
     @Field(_type => [Transmission], { nullable: true })
     @Property({ type: [Transmission], required: false })
     transmissions?: Transmission[];
+
+    @Field(_type => Farewell, { nullable: true })
+    @Property({ type: Farewell, required: false })
+    farewell?: Farewell
 
     @Field(_type => Account, { nullable: true })
     @Property({ ref: Account, required: false })
