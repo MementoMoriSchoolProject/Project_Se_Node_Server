@@ -112,6 +112,7 @@ type Funeral {
   insurances: [Insurance!]
   lastCreationStep: Float
   transmissions: [Transmission!]
+  visiting: [Visiting!]
 }
 
 """Funeral letter"""
@@ -148,6 +149,7 @@ type Mutation {
   saveInsurances(funeralId: String!, insurances: [PersistInsuranceInput!]!): Boolean!
   savePersonalia(funeralId: String!, personalia: PersistDeceasedInput!): Deceased!
   saveTransmissions(funeralId: String!, transmissions: [PersistTransmissionInput!]!): Boolean!
+  saveVisiting(funeralId: String!, visiting: [PersistVisitingInput!]!): Boolean!
 }
 
 """Circumstances of death"""
@@ -257,6 +259,16 @@ input PersistTransmissionInput {
   toPlace: String
 }
 
+"""Visiting object"""
+input PersistVisitingInput {
+  date: DateTime
+  kindOfVisit: String
+  location: String
+  specialNeeds: String
+  timeOfArrival: DateTime
+  timeOfLeave: DateTime
+}
+
 type Query {
   circumstances(id: String!): Circumstances
   client(id: String!): Client
@@ -270,6 +282,7 @@ type Query {
   loggedIn: Account!
   personalia(id: String!): Deceased
   transmissions(id: String!): [Transmission!]
+  visiting(id: String!): [Visiting!]
 }
 
 input RegisterInput {
@@ -289,4 +302,14 @@ type Transmission {
   to: String
   toAddress: String
   toPlace: String
+}
+
+"""The visiting model"""
+type Visiting {
+  date: DateTime
+  kindOfVisit: String
+  location: String
+  specialNeeds: String
+  timeOfArrival: DateTime
+  timeOfLeave: DateTime
 }

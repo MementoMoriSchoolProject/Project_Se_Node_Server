@@ -15,6 +15,7 @@ import { FuneralResolver } from './resolver/funeral';
 import { DeceasedResolver } from './resolver/deceased';
 import { CircumstancesResolver } from './resolver/circumstances';
 import { ClientResolver } from './resolver/client'
+import { VisitingResolver } from './resolver/visiting'
 import { FinalCareResolver } from './resolver/finalcare';
 import { TransmissionsResolver } from './resolver/transmission';
 import { InsurancesResolver } from './resolver/insurance';
@@ -39,6 +40,7 @@ const main = async () => {
             DeceasedResolver,
             CircumstancesResolver,
             ClientResolver,
+            VisitingResolver,
             FinalCareResolver,
             TransmissionsResolver,
             InsurancesResolver,
