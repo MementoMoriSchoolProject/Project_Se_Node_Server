@@ -1,7 +1,7 @@
 import { ObjectType, Field } from 'type-graphql';
 import { prop as Property } from '@typegoose/typegoose';
 
-enum buryCremation {
+export enum BuryCremationEnum {
     bury,
     cremation
 }
@@ -11,7 +11,7 @@ export class BuryCremation {
 
     @Field({ nullable: true })
     @Property()
-    buryCremation?: buryCremation;
+    buryCremation?: BuryCremationEnum;
 
     @Field(() => Date, { nullable: true })
     @Property()

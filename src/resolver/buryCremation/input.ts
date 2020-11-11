@@ -1,15 +1,11 @@
 import { InputType, Field } from 'type-graphql';
-
-enum buryCremation {
-    bury,
-    cremation
-}
+import { BuryCremationEnum } from '../../entities/buryCremation'
 
 @InputType({ description: 'buryCremation input' })
 export class PersistBuryCremationInput {
 
     @Field({ nullable: true })
-    buryCremation?: buryCremation;
+    buryCremation?: BuryCremationEnum;
 
     @Field(() => Date, { nullable: true })
     date?: Date;
