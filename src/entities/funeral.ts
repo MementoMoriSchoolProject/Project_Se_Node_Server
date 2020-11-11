@@ -9,6 +9,9 @@ import { Visiting } from './visiting';
 import { Transmission } from './transmission';
 import { Insurance } from './insurance';
 import { FinalCare } from './finalcare';
+import { Farewell } from './farewell';
+import { FuneralLetter } from './funeralletter';
+import { CommemorativeCard } from './commemorativecard';
 
 @ObjectType({ description: 'The funeral model' })
 export class Funeral {
@@ -42,6 +45,18 @@ export class Funeral {
     @Field(_type => [Transmission], { nullable: true })
     @Property({ type: [Transmission], required: false })
     transmissions?: Transmission[];
+
+    @Field(_type => Farewell, { nullable: true })
+    @Property({ type: Farewell, required: false })
+    farewell?: Farewell
+
+    @Field(_type => FuneralLetter, { nullable: true })
+    @Property({ type: FuneralLetter, required: false })
+    funeralletter?: FuneralLetter
+
+    @Field(_type => CommemorativeCard, { nullable: true })
+    @Property({ type: CommemorativeCard, required: false })
+    commemorativecard?: CommemorativeCard
 
     @Field(_type => Account, { nullable: true })
     @Property({ ref: Account, required: false })

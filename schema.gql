@@ -39,6 +39,13 @@ type Client {
   town: String
 }
 
+"""Commemorative Card"""
+type CommemorativeCard {
+  details: String
+  total: String
+  type: String
+}
+
 """
 The javascript `Date` as string. Type represents date and time as the ISO Date string.
 """
@@ -63,6 +70,21 @@ type Deceased {
   town: String
 }
 
+"""Church service/Farewell service"""
+type Farewell {
+  address: String
+  carrying: String
+  date: DateTime
+  details: String
+  location: String
+  numberOfCarriers: String
+  parkingSpaces: String
+  pastor: String
+  place: String
+  postalCode: String
+  startTime: String
+}
+
 """Final care of deceased person"""
 type FinalCare {
   clothes: String
@@ -81,13 +103,25 @@ type Funeral {
   account: Account
   circumstances: Circumstances
   client: Client
+  commemorativecard: CommemorativeCard
   deceased: Deceased
+  farewell: Farewell
   finalcare: FinalCare
+  funeralletter: FuneralLetter
   id: ID!
   insurances: [Insurance!]
   lastCreationStep: Float
   transmissions: [Transmission!]
   visiting: [Visiting!]
+}
+
+"""Funeral letter"""
+type FuneralLetter {
+  details: String
+  numberOfPorti: String
+  numberOfShipments: String
+  total: String
+  type: String
 }
 
 """Insurance object"""
@@ -108,7 +142,10 @@ type Mutation {
   register(input: RegisterInput!): Account
   saveCircumstances(circumstances: PersistCircumstancesInput!, funeralId: String!): Circumstances!
   saveClient(client: PersistClientInput!, funeralId: String!): Client!
+  saveCommemorativeCard(commemorativecard: PersistCommemorativeCardInput!, funeralId: String!): CommemorativeCard!
+  saveFarewell(farewell: PersistFarewellServiceInput!, funeralId: String!): Farewell!
   saveFinalCare(finalcare: PersistFinalCareInput!, funeralId: String!): FinalCare!
+  saveFuneralLetter(funeralId: String!, funeralletter: PersistFuneralLetterInput!): FuneralLetter!
   saveInsurances(funeralId: String!, insurances: [PersistInsuranceInput!]!): Boolean!
   savePersonalia(funeralId: String!, personalia: PersistDeceasedInput!): Deceased!
   saveTransmissions(funeralId: String!, transmissions: [PersistTransmissionInput!]!): Boolean!
@@ -142,6 +179,13 @@ input PersistClientInput {
   town: String
 }
 
+"""Commemorative Cards"""
+input PersistCommemorativeCardInput {
+  details: String
+  total: String
+  type: String
+}
+
 input PersistDeceasedInput {
   address: String
   amountOfChildren: Float
@@ -160,6 +204,21 @@ input PersistDeceasedInput {
   town: String
 }
 
+"""Church service/Farewell service"""
+input PersistFarewellServiceInput {
+  address: String
+  carrying: String
+  date: DateTime
+  details: String
+  location: String
+  numberOfCarriers: String
+  parkingSpaces: String
+  pastor: String
+  place: String
+  postalCode: String
+  startTime: String
+}
+
 """Final care of deceased person"""
 input PersistFinalCareInput {
   clothes: String
@@ -171,6 +230,15 @@ input PersistFinalCareInput {
   makeFingerprint: String
   makeUpHairstyleWishes: String
   wishesJewelryGlasses: String
+}
+
+"""Funeral letter"""
+input PersistFuneralLetterInput {
+  details: String
+  numberOfPorti: String
+  numberOfShipments: String
+  total: String
+  type: String
 }
 
 """Insurance object"""
@@ -204,8 +272,11 @@ input PersistVisitingInput {
 type Query {
   circumstances(id: String!): Circumstances
   client(id: String!): Client
+  commemorativecard(id: String!): CommemorativeCard
+  farewell(id: String!): Farewell
   finalcare(id: String!): FinalCare
   funeral(id: String): Funeral
+  funeralletter(id: String!): FuneralLetter
   funerals: [Funeral!]!
   insurances(id: String!): [Insurance!]
   loggedIn: Account!
