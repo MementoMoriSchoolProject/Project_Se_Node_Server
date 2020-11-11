@@ -4,7 +4,7 @@ import { BuryCremationEnum } from '../../entities/buryCremation'
 @InputType({ description: 'buryCremation input' })
 export class PersistBuryCremationInput {
 
-    @Field({ nullable: true })
+    @Field(type => BuryCremationEnum, { nullable: true })
     buryCremation?: BuryCremationEnum;
 
     @Field(() => Date, { nullable: true })

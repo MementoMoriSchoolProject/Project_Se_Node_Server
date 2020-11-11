@@ -1,10 +1,15 @@
-import { ObjectType, Field } from 'type-graphql';
+import { ObjectType, Field, registerEnumType } from 'type-graphql';
 import { prop as Property } from '@typegoose/typegoose';
 
 export enum BuryCremationEnum {
-    bury,
-    cremation
+    BURY = "Bury",
+    CREMATION = "Cremation"
 }
+
+registerEnumType(BuryCremationEnum, {
+    name: "BuryCremationEnum",
+    description: "basic enums to check which one is presented"
+})
 
 @ObjectType({ description: 'The buryCremation model' })
 export class BuryCremation {
@@ -52,7 +57,7 @@ export class BuryCremation {
 
     @Field({ nullable: true })
     @Property()
-    insertion ?: string;
+    insertion?: string;
 
     @Field({ nullable: true })
     @Property()
