@@ -13,6 +13,7 @@ import { Farewell } from './farewell';
 import { FuneralLetter } from './funeralletter';
 import { CommemorativeCard } from './commemorativecard';
 import { Ceremony } from './ceremony';
+import { Nightguard } from './nightguard';
 
 @ObjectType({ description: 'The funeral model' })
 export class Funeral {
@@ -34,6 +35,10 @@ export class Funeral {
     @Field(_type => Client, { nullable: true })
     @Property({ type: Client, required: false })
     client?: Client
+
+    @Field(_type => Nightguard, { nullable: true })
+    @Property({ type: Nightguard, required: false })
+    nightguard?: Nightguard
 
     @Field(_type => [Visiting], { nullable: true })
     @Property({ type: [Visiting], required: false })
