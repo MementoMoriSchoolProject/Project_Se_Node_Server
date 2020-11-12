@@ -40,6 +40,27 @@ type Ceremony {
   time: String
   timeDepartureLayoutAddress: String
   wishes: String
+
+"""The buryCremation model"""
+type BuryCremation {
+  address: String
+  ashesDestination: String
+  burriedRecently: String
+  buryCremation: Float
+  cascetDescend: String
+  cascetView: String
+  date: DateTime
+  existingGrave: String
+  insertion: String
+  kindOfGrave: String
+  location: String
+  namePlace: String
+  postalCode: String
+  sectionNumber: String
+  speakerOrder: String
+  specialNeeds: String
+  stonemason: String
+  timeOfArrival: DateTime
 }
 
 """Circumstances of death"""
@@ -133,6 +154,7 @@ type FinalCare {
 type Funeral {
   account: Account
   ceremony: Ceremony
+  buryCremation: BuryCremation
   circumstances: Circumstances
   client: Client
   commemorativecard: CommemorativeCard
@@ -173,6 +195,7 @@ type Mutation {
   logout: Boolean!
   register(input: RegisterInput!): Account
   saveCeremony(ceremony: PersistCeremonyInput!, funeralId: String!): Ceremony!
+  saveBuryCremation(burycremation: PersistBuryCremationInput!, funeralId: String!): BuryCremation!
   saveCircumstances(circumstances: PersistCircumstancesInput!, funeralId: String!): Circumstances!
   saveClient(client: PersistClientInput!, funeralId: String!): Client!
   saveCommemorativeCard(commemorativecard: PersistCommemorativeCardInput!, funeralId: String!): CommemorativeCard!
@@ -214,6 +237,27 @@ input PersistCeremonyInput {
   time: String
   timeDepartureLayoutAddress: String
   wishes: String
+
+"""buryCremation input"""
+input PersistBuryCremationInput {
+  address: String
+  ashesDestination: String
+  burriedRecently: String
+  buryCremation: Float
+  cascetDescend: String
+  cascetView: String
+  date: DateTime
+  existingGrave: String
+  insertion: String
+  kindOfGrave: String
+  location: String
+  namePlace: String
+  postalCode: String
+  sectionNumber: String
+  speakerOrder: String
+  specialNeeds: String
+  stonemason: String
+  timeOfArrival: DateTime
 }
 
 """Circumstances of death"""
@@ -335,6 +379,7 @@ input PersistVisitingInput {
 
 type Query {
   ceremony(id: String!): Ceremony
+  buryCremation(id: String!): BuryCremation
   circumstances(id: String!): Circumstances
   client(id: String!): Client
   commemorativecard(id: String!): CommemorativeCard

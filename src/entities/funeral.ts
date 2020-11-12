@@ -13,6 +13,7 @@ import { Farewell } from './farewell';
 import { FuneralLetter } from './funeralletter';
 import { CommemorativeCard } from './commemorativecard';
 import { Ceremony } from './ceremony';
+import { BuryCremation } from './buryCremation';
 import { Nightguard } from './nightguard';
 
 @ObjectType({ description: 'The funeral model' })
@@ -47,6 +48,10 @@ export class Funeral {
     @Field(_type => FinalCare, { nullable: true })
     @Property({ type: FinalCare, required: false })
     finalcare?: FinalCare
+
+    @Field(_type => BuryCremation, { nullable: true })
+    @Property({ type: BuryCremation, required: false })
+    buryCremation?: BuryCremation
 
     @Field(_type => [Transmission], { nullable: true })
     @Property({ type: [Transmission], required: false })
