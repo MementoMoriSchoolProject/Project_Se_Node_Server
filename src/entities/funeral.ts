@@ -51,7 +51,7 @@ export class Funeral {
 
     @Field(_type => BuryCremation, { nullable: true })
     @Property({ type: BuryCremation, required: false })
-    buryCremation?: BuryCremation
+    burycremation?: BuryCremation
 
     @Field(_type => [Transmission], { nullable: true })
     @Property({ type: [Transmission], required: false })
