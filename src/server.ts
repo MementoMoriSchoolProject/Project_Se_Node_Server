@@ -22,6 +22,7 @@ import { InsurancesResolver } from './resolver/insurance';
 import { FarewellResolver } from './resolver/farewell';
 import { FuneralLetterResolver } from './resolver/funeralletter';
 import { CommemorativeCardResolver } from './resolver/commemorativecard';
+import { CeremonyResolver } from './resolver/ceremony';
 import { BuryCremationResolver } from './resolver/buryCremation/resolver';
 import { NightguardResolver } from './resolver/nightguard';
 
@@ -49,6 +50,7 @@ const main = async () => {
             FarewellResolver,
             FuneralLetterResolver,
             CommemorativeCardResolver,
+            CeremonyResolver,
             BuryCremationResolver,
             NightguardResolver
         ],

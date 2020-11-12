@@ -12,6 +12,7 @@ import { FinalCare } from './finalcare';
 import { Farewell } from './farewell';
 import { FuneralLetter } from './funeralletter';
 import { CommemorativeCard } from './commemorativecard';
+import { Ceremony } from './ceremony';
 import { BuryCremation } from './buryCremation';
 import { Nightguard } from './nightguard';
 
@@ -67,6 +68,10 @@ export class Funeral {
     @Field(_type => CommemorativeCard, { nullable: true })
     @Property({ type: CommemorativeCard, required: false })
     commemorativecard?: CommemorativeCard
+
+    @Field(_type => Ceremony, { nullable: true })
+    @Property({ type: Ceremony, required: false })
+    ceremony?: Ceremony;
 
     @Field(_type => Account, { nullable: true })
     @Property({ ref: Account, required: false })
