@@ -11,6 +11,37 @@ type Account {
   lastname: String!
 }
 
+"""Ceremony object"""
+type Ceremony {
+  acceptFamily: String
+  amountOfInterestedGuests: Float
+  attributesAtKatafalk: String
+  aulaStart: String
+  aulaType: String
+  candlesLitBy: String
+  carrierAmount: Float
+  closingSpeech: String
+  condolanceBook: String
+  date: DateTime
+  duration: String
+  extraTime: String
+  familyFirst: String
+  familyPresentAtLayoutAddress: String
+  flowerCardWishes: String
+  flowerRibbonWishes: String
+  flowerWishes: String
+  funeralAssistantAmount: Float
+  inviteSpeakers: String
+  isInClosedCircle: String
+  momentOfSilence: String
+  openingSpeech: String
+  placesForFamilyAmount: Float
+  speakers: [String!]
+  time: String
+  timeDepartureLayoutAddress: String
+  wishes: String
+}
+
 """Circumstances of death"""
 type Circumstances {
   address: String
@@ -101,6 +132,7 @@ type FinalCare {
 """The funeral model"""
 type Funeral {
   account: Account
+  ceremony: Ceremony
   circumstances: Circumstances
   client: Client
   commemorativecard: CommemorativeCard
@@ -140,6 +172,7 @@ type Mutation {
   login(input: LoginInput!): String
   logout: Boolean!
   register(input: RegisterInput!): Account
+  saveCeremony(ceremony: PersistCeremonyInput!, funeralId: String!): Ceremony!
   saveCircumstances(circumstances: PersistCircumstancesInput!, funeralId: String!): Circumstances!
   saveClient(client: PersistClientInput!, funeralId: String!): Client!
   saveCommemorativeCard(commemorativecard: PersistCommemorativeCardInput!, funeralId: String!): CommemorativeCard!
@@ -150,6 +183,37 @@ type Mutation {
   savePersonalia(funeralId: String!, personalia: PersistDeceasedInput!): Deceased!
   saveTransmissions(funeralId: String!, transmissions: [PersistTransmissionInput!]!): Boolean!
   saveVisiting(funeralId: String!, visiting: [PersistVisitingInput!]!): Boolean!
+}
+
+"""Ceremony object"""
+input PersistCeremonyInput {
+  acceptFamily: String
+  amountOfInterestedGuests: Float
+  attributesAtKatafalk: String
+  aulaStart: String
+  aulaType: String
+  candlesLitBy: String
+  carrierAmount: Float
+  closingSpeech: String
+  condolanceBook: String
+  date: DateTime
+  duration: String
+  extraTime: String
+  familyFirst: String
+  familyPresentAtLayoutAddress: String
+  flowerCardWishes: String
+  flowerRibbonWishes: String
+  flowerWishes: String
+  funeralAssistantAmount: Float
+  inviteSpeakers: String
+  isInClosedCircle: String
+  momentOfSilence: String
+  openingSpeech: String
+  placesForFamilyAmount: Float
+  speakers: [String!]
+  time: String
+  timeDepartureLayoutAddress: String
+  wishes: String
 }
 
 """Circumstances of death"""
@@ -270,6 +334,7 @@ input PersistVisitingInput {
 }
 
 type Query {
+  ceremony(id: String!): Ceremony
   circumstances(id: String!): Circumstances
   client(id: String!): Client
   commemorativecard(id: String!): CommemorativeCard
