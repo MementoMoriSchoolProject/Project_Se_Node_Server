@@ -14,7 +14,7 @@ registerEnumType(BuryCremationEnum, {
 @ObjectType({ description: 'The buryCremation model' })
 export class BuryCremation {
 
-    @Field({ nullable: true })
+    @Field(type => BuryCremationEnum, { nullable: true })
     @Property()
     buryCremation?: BuryCremationEnum;
 
