@@ -11,6 +11,34 @@ type Account {
   lastname: String!
 }
 
+"""The buryCremation model"""
+type BuryCremation {
+  address: String
+  ashesDestination: String
+  burriedRecently: String
+  buryCremation: BuryCremationEnum
+  cascetDescend: String
+  cascetView: String
+  date: DateTime
+  existingGrave: String
+  insertion: String
+  kindOfGrave: String
+  location: String
+  namePlace: String
+  postalCode: String
+  sectionNumber: String
+  speakerOrder: String
+  specialNeeds: String
+  stonemason: String
+  timeOfArrival: DateTime
+}
+
+"""basic enums to check which one is presented"""
+enum BuryCremationEnum {
+  BURY
+  CREMATION
+}
+
 """Ceremony object"""
 type Ceremony {
   acceptFamily: String
@@ -40,27 +68,6 @@ type Ceremony {
   time: String
   timeDepartureLayoutAddress: String
   wishes: String
-
-"""The buryCremation model"""
-type BuryCremation {
-  address: String
-  ashesDestination: String
-  burriedRecently: String
-  buryCremation: Float
-  cascetDescend: String
-  cascetView: String
-  date: DateTime
-  existingGrave: String
-  insertion: String
-  kindOfGrave: String
-  location: String
-  namePlace: String
-  postalCode: String
-  sectionNumber: String
-  speakerOrder: String
-  specialNeeds: String
-  stonemason: String
-  timeOfArrival: DateTime
 }
 
 """Circumstances of death"""
@@ -153,8 +160,8 @@ type FinalCare {
 """The funeral model"""
 type Funeral {
   account: Account
-  ceremony: Ceremony
   buryCremation: BuryCremation
+  ceremony: Ceremony
   circumstances: Circumstances
   client: Client
   commemorativecard: CommemorativeCard
@@ -165,6 +172,7 @@ type Funeral {
   id: ID!
   insurances: [Insurance!]
   lastCreationStep: Float
+  nightguard: Nightguard
   transmissions: [Transmission!]
   visiting: [Visiting!]
 }
@@ -194,8 +202,8 @@ type Mutation {
   login(input: LoginInput!): String
   logout: Boolean!
   register(input: RegisterInput!): Account
-  saveCeremony(ceremony: PersistCeremonyInput!, funeralId: String!): Ceremony!
   saveBuryCremation(burycremation: PersistBuryCremationInput!, funeralId: String!): BuryCremation!
+  saveCeremony(ceremony: PersistCeremonyInput!, funeralId: String!): Ceremony!
   saveCircumstances(circumstances: PersistCircumstancesInput!, funeralId: String!): Circumstances!
   saveClient(client: PersistClientInput!, funeralId: String!): Client!
   saveCommemorativeCard(commemorativecard: PersistCommemorativeCardInput!, funeralId: String!): CommemorativeCard!
@@ -203,9 +211,41 @@ type Mutation {
   saveFinalCare(finalcare: PersistFinalCareInput!, funeralId: String!): FinalCare!
   saveFuneralLetter(funeralId: String!, funeralletter: PersistFuneralLetterInput!): FuneralLetter!
   saveInsurances(funeralId: String!, insurances: [PersistInsuranceInput!]!): Boolean!
+  saveNightguard(funeralId: String!, nightguard: PersistNightguardInput!): Nightguard!
   savePersonalia(funeralId: String!, personalia: PersistDeceasedInput!): Deceased!
   saveTransmissions(funeralId: String!, transmissions: [PersistTransmissionInput!]!): Boolean!
   saveVisiting(funeralId: String!, visiting: [PersistVisitingInput!]!): Boolean!
+}
+
+"""The nightguard model"""
+type Nightguard {
+  date: DateTime
+  location: String
+  predecessor: String
+  specialNeeds: String
+  time: DateTime
+}
+
+"""buryCremation input"""
+input PersistBuryCremationInput {
+  address: String
+  ashesDestination: String
+  burriedRecently: String
+  buryCremation: BuryCremationEnum
+  cascetDescend: String
+  cascetView: String
+  date: DateTime
+  existingGrave: String
+  insertion: String
+  kindOfGrave: String
+  location: String
+  namePlace: String
+  postalCode: String
+  sectionNumber: String
+  speakerOrder: String
+  specialNeeds: String
+  stonemason: String
+  timeOfArrival: DateTime
 }
 
 """Ceremony object"""
@@ -237,27 +277,6 @@ input PersistCeremonyInput {
   time: String
   timeDepartureLayoutAddress: String
   wishes: String
-
-"""buryCremation input"""
-input PersistBuryCremationInput {
-  address: String
-  ashesDestination: String
-  burriedRecently: String
-  buryCremation: Float
-  cascetDescend: String
-  cascetView: String
-  date: DateTime
-  existingGrave: String
-  insertion: String
-  kindOfGrave: String
-  location: String
-  namePlace: String
-  postalCode: String
-  sectionNumber: String
-  speakerOrder: String
-  specialNeeds: String
-  stonemason: String
-  timeOfArrival: DateTime
 }
 
 """Circumstances of death"""
@@ -355,6 +374,15 @@ input PersistInsuranceInput {
   policynumber: String
 }
 
+"""Nightguard object"""
+input PersistNightguardInput {
+  date: DateTime
+  location: String
+  predecessor: String
+  specialNeeds: String
+  time: DateTime
+}
+
 """Transmission object"""
 input PersistTransmissionInput {
   by: String
@@ -378,8 +406,8 @@ input PersistVisitingInput {
 }
 
 type Query {
-  ceremony(id: String!): Ceremony
   buryCremation(id: String!): BuryCremation
+  ceremony(id: String!): Ceremony
   circumstances(id: String!): Circumstances
   client(id: String!): Client
   commemorativecard(id: String!): CommemorativeCard
@@ -390,6 +418,7 @@ type Query {
   funerals: [Funeral!]!
   insurances(id: String!): [Insurance!]
   loggedIn: Account!
+  nightguard(id: String!): Nightguard
   personalia(id: String!): Deceased
   transmissions(id: String!): [Transmission!]
   visiting(id: String!): [Visiting!]
