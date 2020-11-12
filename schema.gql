@@ -11,6 +11,28 @@ type Account {
   lastname: String!
 }
 
+"""The buryCremation model"""
+type BuryCremation {
+  address: String
+  ashesDestination: String
+  burriedRecently: String
+  buryCremation: Float
+  cascetDescend: String
+  cascetView: String
+  date: DateTime
+  existingGrave: String
+  insertion: String
+  kindOfGrave: String
+  location: String
+  namePlace: String
+  postalCode: String
+  sectionNumber: String
+  speakerOrder: String
+  specialNeeds: String
+  stonemason: String
+  timeOfArrival: DateTime
+}
+
 """Circumstances of death"""
 type Circumstances {
   address: String
@@ -101,6 +123,7 @@ type FinalCare {
 """The funeral model"""
 type Funeral {
   account: Account
+  buryCremation: BuryCremation
   circumstances: Circumstances
   client: Client
   commemorativecard: CommemorativeCard
@@ -140,6 +163,7 @@ type Mutation {
   login(input: LoginInput!): String
   logout: Boolean!
   register(input: RegisterInput!): Account
+  saveBuryCremation(burycremation: PersistBuryCremationInput!, funeralId: String!): BuryCremation!
   saveCircumstances(circumstances: PersistCircumstancesInput!, funeralId: String!): Circumstances!
   saveClient(client: PersistClientInput!, funeralId: String!): Client!
   saveCommemorativeCard(commemorativecard: PersistCommemorativeCardInput!, funeralId: String!): CommemorativeCard!
@@ -150,6 +174,28 @@ type Mutation {
   savePersonalia(funeralId: String!, personalia: PersistDeceasedInput!): Deceased!
   saveTransmissions(funeralId: String!, transmissions: [PersistTransmissionInput!]!): Boolean!
   saveVisiting(funeralId: String!, visiting: [PersistVisitingInput!]!): Boolean!
+}
+
+"""buryCremation input"""
+input PersistBuryCremationInput {
+  address: String
+  ashesDestination: String
+  burriedRecently: String
+  buryCremation: Float
+  cascetDescend: String
+  cascetView: String
+  date: DateTime
+  existingGrave: String
+  insertion: String
+  kindOfGrave: String
+  location: String
+  namePlace: String
+  postalCode: String
+  sectionNumber: String
+  speakerOrder: String
+  specialNeeds: String
+  stonemason: String
+  timeOfArrival: DateTime
 }
 
 """Circumstances of death"""
@@ -270,6 +316,7 @@ input PersistVisitingInput {
 }
 
 type Query {
+  buryCremation(id: String!): BuryCremation
   circumstances(id: String!): Circumstances
   client(id: String!): Client
   commemorativecard(id: String!): CommemorativeCard

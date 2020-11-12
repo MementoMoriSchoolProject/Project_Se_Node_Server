@@ -22,6 +22,7 @@ import { InsurancesResolver } from './resolver/insurance';
 import { FarewellResolver } from './resolver/farewell';
 import { FuneralLetterResolver } from './resolver/funeralletter';
 import { CommemorativeCardResolver } from './resolver/commemorativecard';
+import { BuryCremationResolver } from './resolver/buryCremation/resolver';
 import { NightguardResolver } from './resolver/nightguard';
 
 dotenv.config();
@@ -48,6 +49,7 @@ const main = async () => {
             FarewellResolver,
             FuneralLetterResolver,
             CommemorativeCardResolver,
+            BuryCremationResolver,
             NightguardResolver
         ],
         // create a .gql schema file
