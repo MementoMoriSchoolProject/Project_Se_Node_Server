@@ -16,6 +16,8 @@ import { Ceremony } from './ceremony';
 import { BuryCremation } from './buryCremation';
 import { Nightguard } from './nightguard';
 import { Cascet } from './cascet';
+import { Advertisement } from './advertisement';
+import { LayOut } from './layOut';
 
 @ObjectType({ description: 'The funeral model' })
 export class Funeral {
@@ -42,9 +44,17 @@ export class Funeral {
     @Property({ type: Nightguard, required: false })
     nightguard?: Nightguard
 
+    @Field(_type => LayOut, { nullable: true })
+    @Property({ type: LayOut, required: false })
+    layOut?: LayOut
+
     @Field(_type => [Visiting], { nullable: true })
     @Property({ type: [Visiting], required: false })
     visiting?: Visiting[];
+
+    @Field(_type => [Advertisement], { nullable: true })
+    @Property({ type: [Advertisement], required: false })
+    advertisement?: Advertisement[];
 
     @Field(_type => FinalCare, { nullable: true })
     @Property({ type: FinalCare, required: false })
