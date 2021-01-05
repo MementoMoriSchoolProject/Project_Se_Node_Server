@@ -55,7 +55,7 @@ const main = async () => {
             CeremonyResolver,
             BuryCremationResolver,
             NightguardResolver,
-            AdvertisementResolver
+            AdvertisementResolver,
             LayoutResolver,
         ],
         // create a .gql schema file
