@@ -26,6 +26,7 @@ import { CeremonyResolver } from './resolver/ceremony';
 import { BuryCremationResolver } from './resolver/buryCremation/resolver';
 import { NightguardResolver } from './resolver/nightguard';
 import { AdvertisementResolver } from './resolver/advertisement';
+import { LayoutResolver } from './resolver/layOut';
 
 dotenv.config();
 
@@ -55,6 +56,7 @@ const main = async () => {
             BuryCremationResolver,
             NightguardResolver,
             AdvertisementResolver
+            LayoutResolver,
         ],
         // create a .gql schema file
         emitSchemaFile: true,
