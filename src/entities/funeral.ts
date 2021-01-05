@@ -15,6 +15,7 @@ import { CommemorativeCard } from './commemorativecard';
 import { Ceremony } from './ceremony';
 import { BuryCremation } from './buryCremation';
 import { Nightguard } from './nightguard';
+import { LayOut } from './layOut';
 
 @ObjectType({ description: 'The funeral model' })
 export class Funeral {
@@ -40,6 +41,10 @@ export class Funeral {
     @Field(_type => Nightguard, { nullable: true })
     @Property({ type: Nightguard, required: false })
     nightguard?: Nightguard
+
+    @Field(_type => LayOut, { nullable: true })
+    @Property({ type: LayOut, required: false })
+    layOut?: LayOut
 
     @Field(_type => [Visiting], { nullable: true })
     @Property({ type: [Visiting], required: false })
