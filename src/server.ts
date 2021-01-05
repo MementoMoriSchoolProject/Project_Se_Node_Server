@@ -28,6 +28,7 @@ import { NightguardResolver } from './resolver/nightguard';
 import { CascetResolver } from './resolver/cascet';
 import { AdvertisementResolver } from './resolver/advertisement';
 import { LayoutResolver } from './resolver/layOut';
+import { FlowersResolver } from './resolver/flowers';
 
 dotenv.config();
 
@@ -59,6 +60,7 @@ const main = async () => {
             CascetResolver,
             AdvertisementResolver,
             LayoutResolver,
+            FlowersResolver,
         ],
         // create a .gql schema file
         emitSchemaFile: true,

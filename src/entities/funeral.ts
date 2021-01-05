@@ -18,6 +18,7 @@ import { Nightguard } from './nightguard';
 import { Cascet } from './cascet';
 import { Advertisement } from './advertisement';
 import { LayOut } from './layOut';
+import { Flowers } from './flowers';
 
 @ObjectType({ description: 'The funeral model' })
 export class Funeral {
@@ -51,6 +52,10 @@ export class Funeral {
     @Field(_type => [Visiting], { nullable: true })
     @Property({ type: [Visiting], required: false })
     visiting?: Visiting[];
+
+    @Field(_type => [Flowers], { nullable: true })
+    @Property({ type: [Flowers], required: false })
+    flowers?: Flowers[];
 
     @Field(_type => [Advertisement], { nullable: true })
     @Property({ type: [Advertisement], required: false })
