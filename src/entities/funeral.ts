@@ -15,6 +15,9 @@ import { CommemorativeCard } from './commemorativecard';
 import { Ceremony } from './ceremony';
 import { BuryCremation } from './buryCremation';
 import { Nightguard } from './nightguard';
+import { Transport } from './transport';
+import { DrivingInfoFuneralCar } from './drivinginfofuneralcar';
+import { DrivingInfoFollowingCar } from './drivinginfofollowingcar';
 
 @ObjectType({ description: 'The funeral model' })
 export class Funeral {
@@ -64,6 +67,18 @@ export class Funeral {
     @Field(_type => FuneralLetter, { nullable: true })
     @Property({ type: FuneralLetter, required: false })
     funeralletter?: FuneralLetter
+
+    @Field(_type => Transport, { nullable: true })
+    @Property({ type: Transport, required: false })
+    transport?: Transport
+
+    @Field(_type => [DrivingInfoFuneralCar], { nullable: true })
+    @Property({ type: [DrivingInfoFuneralCar], required: false })
+    drivinginfofuneralcar?: DrivingInfoFuneralCar[];
+
+    @Field(_type => [DrivingInfoFollowingCar], { nullable: true })
+    @Property({ type: [DrivingInfoFollowingCar], required: false })
+    drivinginfofollowingcar?: DrivingInfoFollowingCar[];
 
     @Field(_type => CommemorativeCard, { nullable: true })
     @Property({ type: CommemorativeCard, required: false })
