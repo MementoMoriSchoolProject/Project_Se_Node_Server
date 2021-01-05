@@ -15,6 +15,7 @@ import { CommemorativeCard } from './commemorativecard';
 import { Ceremony } from './ceremony';
 import { BuryCremation } from './buryCremation';
 import { Nightguard } from './nightguard';
+import { Cascet } from './cascet';
 import { Advertisement } from './advertisement';
 import { LayOut } from './layOut';
 
@@ -82,6 +83,10 @@ export class Funeral {
     @Field(_type => Ceremony, { nullable: true })
     @Property({ type: Ceremony, required: false })
     ceremony?: Ceremony;
+
+    @Field(_type => Cascet, { nullable: true })
+    @Property({ type: Cascet, required: false })
+    cascet?: Cascet;
 
     @Field(_type => Account, { nullable: true })
     @Property({ ref: Account, required: false })

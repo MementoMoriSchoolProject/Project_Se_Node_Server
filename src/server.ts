@@ -25,6 +25,7 @@ import { CommemorativeCardResolver } from './resolver/commemorativecard';
 import { CeremonyResolver } from './resolver/ceremony';
 import { BuryCremationResolver } from './resolver/buryCremation/resolver';
 import { NightguardResolver } from './resolver/nightguard';
+import { CascetResolver } from './resolver/cascet';
 import { AdvertisementResolver } from './resolver/advertisement';
 import { LayoutResolver } from './resolver/layOut';
 
@@ -55,6 +56,7 @@ const main = async () => {
             CeremonyResolver,
             BuryCremationResolver,
             NightguardResolver,
+            CascetResolver,
             AdvertisementResolver,
             LayoutResolver,
         ],
