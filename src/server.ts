@@ -28,6 +28,9 @@ import { NightguardResolver } from './resolver/nightguard';
 import { TransportResolver } from './resolver/transport';
 import { DrivingInfoFuneralCarResolver } from './resolver/drivinginfofuneralcar';
 import { DrivingInfoFollowingCarResolver } from './resolver/drivinginfofollowingcar';
+import { CascetResolver } from './resolver/cascet';
+import { AdvertisementResolver } from './resolver/advertisement';
+import { LayoutResolver } from './resolver/layOut';
 
 dotenv.config();
 
@@ -59,6 +62,9 @@ const main = async () => {
             TransportResolver,
             DrivingInfoFuneralCarResolver,
             DrivingInfoFollowingCarResolver
+            CascetResolver,
+            AdvertisementResolver,
+            LayoutResolver,
         ],
         // create a .gql schema file
         emitSchemaFile: true,

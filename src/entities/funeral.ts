@@ -18,6 +18,9 @@ import { Nightguard } from './nightguard';
 import { Transport } from './transport';
 import { DrivingInfoFuneralCar } from './drivinginfofuneralcar';
 import { DrivingInfoFollowingCar } from './drivinginfofollowingcar';
+import { Cascet } from './cascet';
+import { Advertisement } from './advertisement';
+import { LayOut } from './layOut';
 
 @ObjectType({ description: 'The funeral model' })
 export class Funeral {
@@ -44,9 +47,17 @@ export class Funeral {
     @Property({ type: Nightguard, required: false })
     nightguard?: Nightguard
 
+    @Field(_type => LayOut, { nullable: true })
+    @Property({ type: LayOut, required: false })
+    layOut?: LayOut
+
     @Field(_type => [Visiting], { nullable: true })
     @Property({ type: [Visiting], required: false })
     visiting?: Visiting[];
+
+    @Field(_type => [Advertisement], { nullable: true })
+    @Property({ type: [Advertisement], required: false })
+    advertisement?: Advertisement[];
 
     @Field(_type => FinalCare, { nullable: true })
     @Property({ type: FinalCare, required: false })
@@ -87,6 +98,10 @@ export class Funeral {
     @Field(_type => Ceremony, { nullable: true })
     @Property({ type: Ceremony, required: false })
     ceremony?: Ceremony;
+
+    @Field(_type => Cascet, { nullable: true })
+    @Property({ type: Cascet, required: false })
+    cascet?: Cascet;
 
     @Field(_type => Account, { nullable: true })
     @Property({ ref: Account, required: false })
