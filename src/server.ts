@@ -61,7 +61,7 @@ const main = async () => {
             NightguardResolver,
             TransportResolver,
             DrivingInfoFuneralCarResolver,
-            DrivingInfoFollowingCarResolver
+            DrivingInfoFollowingCarResolver,
             CascetResolver,
             AdvertisementResolver,
             LayoutResolver,
