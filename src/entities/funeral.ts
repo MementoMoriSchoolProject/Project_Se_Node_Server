@@ -21,6 +21,7 @@ import { DrivingInfoFollowingCar } from './drivinginfofollowingcar';
 import { Cascet } from './cascet';
 import { Advertisement } from './advertisement';
 import { LayOut } from './layOut';
+import { AudioVideo } from './audiovideo';
 
 @ObjectType({ description: 'The funeral model' })
 export class Funeral {
@@ -74,6 +75,10 @@ export class Funeral {
     @Field(_type => Farewell, { nullable: true })
     @Property({ type: Farewell, required: false })
     farewell?: Farewell
+
+    @Field(_type => AudioVideo, { nullable: true })
+    @Property({ type: AudioVideo, required: false })
+    audioVideo?: AudioVideo;
 
     @Field(_type => FuneralLetter, { nullable: true })
     @Property({ type: FuneralLetter, required: false })
