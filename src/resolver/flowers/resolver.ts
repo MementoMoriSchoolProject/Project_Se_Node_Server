@@ -7,18 +7,18 @@ import { PersistFlowersInput } from './input';
 export class FlowersResolver {
 
     @Authorized()
-    @Query(_returns => [Flowers], { nullable: true })
-    async flowers(@Arg('id') id: string): Promise<Flowers[]> {
+    @Query(_returns => Flowers, { nullable: true })
+    async flowers(@Arg('id') id: string): Promise<Flowers> {
         return (await FuneralModel.findById(id)).flowers;
     }
 
     @Authorized()
-    @Mutation(_returns => Boolean)
-    async saveFlowers(@Arg('funeralId') id: string, @Arg('flowers', () => [PersistFlowersInput]) flowers: PersistFlowersInput[]): Promise<boolean> {
+    @Mutation(_returns => Flowers)
+    async saveFlowers(@Arg('funeralId') id: string, @Arg('flowers') flowers: PersistFlowersInput): Promise<Flowers> {
         const funeral = await FuneralModel.findById(id);
         funeral.flowers = flowers;
         await FuneralModel.findByIdAndUpdate(id, { flowers });
-        return true;
+        return funeral.flowers;
     }
 
 }

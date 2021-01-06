@@ -1,13 +1,8 @@
 import { ObjectType, Field } from 'type-graphql';
 import { prop as Property } from '@typegoose/typegoose';
 
-@ObjectType({ description: 'Flowers object' })
-export class Flowers {
-
-    @Field({ nullable: true })
-    @Property()
-    supplier?: string;
-
+@ObjectType({ description: 'Sub Flowers object' })
+export class SubFlowers {
     @Field({ nullable: true })
     @Property()
     formatting?: string;
@@ -27,6 +22,18 @@ export class Flowers {
     @Field({ nullable: true })
     @Property()
     costFlower?: number;
+}
+
+@ObjectType({ description: 'Complete Flowers object' })
+export class Flowers {
+
+    @Field({ nullable: true })
+    @Property()
+    supplier?: string;
+
+    @Field(() => [SubFlowers], { nullable: true })
+    @Property({ type: [SubFlowers], required: false })
+    flowers?: SubFlowers[];
 
     @Field(() => Date, { nullable: true })
     @Property()

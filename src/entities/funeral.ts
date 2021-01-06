@@ -53,9 +53,9 @@ export class Funeral {
     @Property({ type: [Visiting], required: false })
     visiting?: Visiting[];
 
-    @Field(_type => [Flowers], { nullable: true })
-    @Property({ type: [Flowers], required: false })
-    flowers?: Flowers[];
+    @Field(_type => Flowers, { nullable: true })
+    @Property({ type: Flowers, required: false })
+    flowers?: Flowers;
 
     @Field(_type => [Advertisement], { nullable: true })
     @Property({ type: [Advertisement], required: false })

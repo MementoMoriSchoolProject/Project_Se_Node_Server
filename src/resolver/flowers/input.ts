@@ -1,11 +1,8 @@
-import { InputType, Field } from "type-graphql";
+import { InputType, Field, ObjectType } from "type-graphql";
+import { prop as Property } from '@typegoose/typegoose';
 
-@InputType({ description: "Flowers object" })
-export class PersistFlowersInput {
-
-    @Field({ nullable: true })
-    supplier?: string;
-
+@InputType({ description: "Sub Flowers Object" })
+class SubFlowersInput {
     @Field({ nullable: true })
     formatting?: string;
 
@@ -20,6 +17,17 @@ export class PersistFlowersInput {
 
     @Field({ nullable: true })
     costFlower?: number;
+}
+
+@InputType({ description: "Complete Flowers object" })
+export class PersistFlowersInput {
+
+    @Field({ nullable: true })
+    supplier?: string;
+
+    @Field(() => [SubFlowersInput], { nullable: true })
+    @Property({ type: [SubFlowersInput] })
+    flowers?: SubFlowersInput[];
 
     @Field(() => Date, { nullable: true })
     deliveryDate?: Date;
