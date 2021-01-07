@@ -32,6 +32,7 @@ import { CascetResolver } from './resolver/cascet';
 import { AdvertisementResolver } from './resolver/advertisement';
 import { LayoutResolver } from './resolver/layOut';
 import { FlowersResolver } from './resolver/flowers';
+import { AudioVideoResolver } from './resolver/audiovideo';
 
 dotenv.config();
 
@@ -67,6 +68,7 @@ const main = async () => {
             AdvertisementResolver,
             LayoutResolver,
             FlowersResolver,
+            AudioVideoResolver,
         ],
         // create a .gql schema file
         emitSchemaFile: true,
