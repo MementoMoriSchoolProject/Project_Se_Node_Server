@@ -53,6 +53,10 @@ export class Flowers {
 
     @Field({ nullable: true })
     @Property()
+    adress?: string;
+
+    @Field({ nullable: true })
+    @Property()
     postalCode?: string;
 
     @Field({ nullable: true })
