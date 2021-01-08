@@ -16,6 +16,14 @@ import { Ceremony } from './ceremony';
 import { BuryCremation } from './buryCremation';
 import { Nightguard } from './nightguard';
 import { Appointment } from './appointment';
+import { Transport } from './transport';
+import { DrivingInfoFuneralCar } from './drivinginfofuneralcar';
+import { DrivingInfoFollowingCar } from './drivinginfofollowingcar';
+import { Cascet } from './cascet';
+import { Advertisement } from './advertisement';
+import { LayOut } from './layOut';
+import { Flowers } from './flowers';
+import { AudioVideo } from './audiovideo';
 
 @ObjectType({ description: 'The funeral model' })
 export class Funeral {
@@ -42,9 +50,21 @@ export class Funeral {
     @Property({ type: Nightguard, required: false })
     nightguard?: Nightguard
 
+    @Field(_type => LayOut, { nullable: true })
+    @Property({ type: LayOut, required: false })
+    layOut?: LayOut
+
     @Field(_type => [Visiting], { nullable: true })
     @Property({ type: [Visiting], required: false })
     visiting?: Visiting[];
+
+    @Field(_type => Flowers, { nullable: true })
+    @Property({ type: Flowers, required: false })
+    flowers?: Flowers;
+
+    @Field(_type => [Advertisement], { nullable: true })
+    @Property({ type: [Advertisement], required: false })
+    advertisement?: Advertisement[];
 
     @Field(_type => FinalCare, { nullable: true })
     @Property({ type: FinalCare, required: false })
@@ -62,9 +82,25 @@ export class Funeral {
     @Property({ type: Farewell, required: false })
     farewell?: Farewell
 
+    @Field(_type => AudioVideo, { nullable: true })
+    @Property({ type: AudioVideo, required: false })
+    audioVideo?: AudioVideo;
+
     @Field(_type => FuneralLetter, { nullable: true })
     @Property({ type: FuneralLetter, required: false })
     funeralletter?: FuneralLetter
+
+    @Field(_type => Transport, { nullable: true })
+    @Property({ type: Transport, required: false })
+    transport?: Transport
+
+    @Field(_type => [DrivingInfoFuneralCar], { nullable: true })
+    @Property({ type: [DrivingInfoFuneralCar], required: false })
+    drivinginfofuneralcar?: DrivingInfoFuneralCar[];
+
+    @Field(_type => [DrivingInfoFollowingCar], { nullable: true })
+    @Property({ type: [DrivingInfoFollowingCar], required: false })
+    drivinginfofollowingcar?: DrivingInfoFollowingCar[];
 
     @Field(_type => CommemorativeCard, { nullable: true })
     @Property({ type: CommemorativeCard, required: false })
@@ -73,6 +109,10 @@ export class Funeral {
     @Field(_type => Ceremony, { nullable: true })
     @Property({ type: Ceremony, required: false })
     ceremony?: Ceremony;
+
+    @Field(_type => Cascet, { nullable: true })
+    @Property({ type: Cascet, required: false })
+    cascet?: Cascet;
 
     @Field(_type => Account, { nullable: true })
     @Property({ ref: Account, required: false })

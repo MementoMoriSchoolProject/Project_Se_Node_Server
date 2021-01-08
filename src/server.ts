@@ -26,6 +26,14 @@ import { CeremonyResolver } from './resolver/ceremony';
 import { BuryCremationResolver } from './resolver/buryCremation/resolver';
 import { NightguardResolver } from './resolver/nightguard';
 import { AppointmentResolver } from './resolver/appointments';
+import { TransportResolver } from './resolver/transport';
+import { DrivingInfoFuneralCarResolver } from './resolver/drivinginfofuneralcar';
+import { DrivingInfoFollowingCarResolver } from './resolver/drivinginfofollowingcar';
+import { CascetResolver } from './resolver/cascet';
+import { AdvertisementResolver } from './resolver/advertisement';
+import { LayoutResolver } from './resolver/layOut';
+import { FlowersResolver } from './resolver/flowers';
+import { AudioVideoResolver } from './resolver/audiovideo';
 
 dotenv.config();
 
@@ -54,7 +62,15 @@ const main = async () => {
             CeremonyResolver,
             BuryCremationResolver,
             NightguardResolver,
-            AppointmentResolver
+            AppointmentResolver,
+            TransportResolver,
+            DrivingInfoFuneralCarResolver,
+            DrivingInfoFollowingCarResolver,
+            CascetResolver,
+            AdvertisementResolver,
+            LayoutResolver,
+            FlowersResolver,
+            AudioVideoResolver,
         ],
         // create a .gql schema file
         emitSchemaFile: true,
