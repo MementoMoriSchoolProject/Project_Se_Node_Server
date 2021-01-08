@@ -27,4 +27,13 @@ export class FuneralResolver {
         return await FuneralModel.create({ account, lastCreationStep: 0 });
     }
 
+    @Mutation(_returns => Boolean, { nullable: true })
+    @Authorized()
+    async saveLastPage(@Arg('id') id: string, @Arg('page', { nullable: true }) page: number): Promise<boolean> {
+        const funeral = await FuneralModel.findById(id)
+        funeral.lastCreationStep = page || 0;
+        await FuneralModel.findByIdAndUpdate(id, { lastCreationStep: page });
+        return true;
+    }
+
 }
