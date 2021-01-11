@@ -25,6 +25,7 @@ import { CommemorativeCardResolver } from './resolver/commemorativecard';
 import { CeremonyResolver } from './resolver/ceremony';
 import { BuryCremationResolver } from './resolver/buryCremation/resolver';
 import { NightguardResolver } from './resolver/nightguard';
+import { AppointmentResolver } from './resolver/appointments';
 import { TransportResolver } from './resolver/transport';
 import { DrivingInfoFuneralCarResolver } from './resolver/drivinginfofuneralcar';
 import { DrivingInfoFollowingCarResolver } from './resolver/drivinginfofollowingcar';
@@ -61,6 +62,7 @@ const main = async () => {
             CeremonyResolver,
             BuryCremationResolver,
             NightguardResolver,
+            AppointmentResolver,
             TransportResolver,
             DrivingInfoFuneralCarResolver,
             DrivingInfoFollowingCarResolver,

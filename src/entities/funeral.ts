@@ -15,6 +15,7 @@ import { CommemorativeCard } from './commemorativecard';
 import { Ceremony } from './ceremony';
 import { BuryCremation } from './buryCremation';
 import { Nightguard } from './nightguard';
+import { Appointment } from './appointment';
 import { Transport } from './transport';
 import { DrivingInfoFuneralCar } from './drivinginfofuneralcar';
 import { DrivingInfoFollowingCar } from './drivinginfofollowingcar';
@@ -120,6 +121,10 @@ export class Funeral {
     @Field(_type => Number, { nullable: true })
     @Property({ required: false })
     lastCreationStep?: number;
+
+    @Field(_type => Appointment, { nullable: true })
+    @Property({ required: false })
+    appointments?: Appointment;    
 }
 
 export const FuneralModel = getModelForClass(Funeral);
