@@ -124,7 +124,7 @@ export class Funeral {
 
     @Field(_type => Appointment, { nullable: true })
     @Property({ required: false })
-    appointments?: Appointment;    
+    appointments?: Appointment;
 }
 
 export const FuneralModel = getModelForClass(Funeral);

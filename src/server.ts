@@ -35,6 +35,8 @@ import { LayoutResolver } from './resolver/layOut';
 import { FlowersResolver } from './resolver/flowers';
 import { AudioVideoResolver } from './resolver/audiovideo';
 
+import { googleAuth } from './auth/googleAuthToken'
+
 dotenv.config();
 
 const { PORT, MONGOATLASUSERNAME, MONGOATLASPASSWORD, MONGOATLASDBNAME, SESSION_SECRET, ENVIRONMENT } = process.env;
@@ -126,6 +128,8 @@ const main = async () => {
             useCreateIndex: true,
         }
     );
+
+    console.log(googleAuth());
 
     // apply the middleware of our Apollo server to the Express app
     // @ts-ignore
