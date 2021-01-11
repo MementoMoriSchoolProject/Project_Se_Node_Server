@@ -18,10 +18,7 @@ const TOKEN_DIR = __dirname;
 const TOKEN_PATH = TOKEN_DIR + '/gmail-nodejs-quickstart.json';
 
 export const googleAuth = async () => {
-    ***REMOVED***
-    ***REMOVED***
-    ***REMOVED***
-    ***REMOVED***
+// input credentials
 
     const authUrl = oauth2Client.generateAuthUrl({
         access_type: 'offline',
