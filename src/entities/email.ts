@@ -21,7 +21,7 @@ export class Email {
     @Field()
     date: string;
 
-    @Field({ nullable: true })
+    @Field(() => [String], { nullable: true })
     labels?: string[];
 
     @Field({ defaultValue: false })

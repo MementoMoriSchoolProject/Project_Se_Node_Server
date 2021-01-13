@@ -8,7 +8,7 @@ export class EmailInput {
     @Field({ defaultValue: 0 })
     page: number;
 
-    @Field({ defaultValue: [] })
+    @Field(() => [String])
     labels: string[];
 
     @Field({ defaultValue: "" })

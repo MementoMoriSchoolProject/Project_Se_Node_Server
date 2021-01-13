@@ -1,6 +1,6 @@
 import Express from 'express';
-import { buildSchema } from 'type-graphql';
-import { ApolloServer } from 'apollo-server-express';
+import { buildSchema, Mutation } from 'type-graphql';
+import { ApolloServer, gql } from 'apollo-server-express';
 import cors from 'cors';
 import _ from 'lodash';
 import mongoose from 'mongoose';
@@ -34,8 +34,8 @@ import { AdvertisementResolver } from './resolver/advertisement';
 import { LayoutResolver } from './resolver/layOut';
 import { FlowersResolver } from './resolver/flowers';
 import { AudioVideoResolver } from './resolver/audiovideo';
-import { googleAuth, googleAuthWithToken } from './auth/googleAuthToken'
 import { EmailResolver } from './resolver/email/resolver';
+import { AccountModel } from './entities/auth';
 
 dotenv.config();
 
@@ -48,7 +48,7 @@ export const {
     ENVIRONMENT,
     GOOGLE_CLIENT_SECRET,
     GOOGLE_CLIENT_ID,
-    } = process.env;
+} = process.env;
 
 const main = async () => {
     // create the express server
@@ -150,18 +150,20 @@ const main = async () => {
         console.log(`Apollo Server on http://localhost:${PORT}/graphql`);
     });
 
-    app.get('/gmail-webhook', async (req: { query: { code: any; }; }, res: any) => {
+    // webhook for google return uri
+    app.get('/gmail-webhook', async (req: any, res: any) => {
         const code = req.query.code;
 
-        if (code) {
-            googleAuthWithToken(code);
+        const user = await AccountModel.findById(req.query.id);
+
+        if (code && user) {
+            user.gmailCode = code;
+            user.save();
+            res.redirect(req.query.redirect)
         } else {
-            console.log("no code found")
-        }
-
-        res.send(200);
-    })
-
+            res.send(404).json("no code found")
+        };
+    });
 }
 
 main().catch((error) => {

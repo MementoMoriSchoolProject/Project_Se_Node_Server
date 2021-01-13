@@ -40,7 +40,7 @@ export class EmailResolver {
         });
 
         return new Promise((resolve, reject) => {
-            const list = new EmailList(emails.length, page);
+            const list = new EmailList(emails.length, input.page);
             emails.forEach(email => {
                 email
                     .then(resolvedEmail => list.emails.push(resolvedEmail))
@@ -52,11 +52,11 @@ export class EmailResolver {
 
     @Authorized()
     @Mutation(_returns => String, { nullable: true })
-    async authorizeGoogleForEmail(@Arg('redirectUri') redirectFrontend: string): Promise<String> {
+    async authorizeGoogleForEmail(@Ctx() context: Context, @Arg('redirectUri') redirectFrontend: string): Promise<String> {
         const oauth2Client = new OAuth2Client(GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, REDIRECT_URL);
         const authUrl = oauth2Client.generateAuthUrl({
             scope: SCOPES,
-            redirect_uri: `${GMAIL_AUTH_WEBHOOK_URL}?redirect=${encodeURI(redirectFrontend)}`
+            redirect_uri: `${GMAIL_AUTH_WEBHOOK_URL}?redirect=${encodeURI(redirectFrontend)}&id=${context.decodedToken.id}`
         });
         return authUrl;
     }
