@@ -34,6 +34,7 @@ import { AdvertisementResolver } from './resolver/advertisement';
 import { LayoutResolver } from './resolver/layOut';
 import { FlowersResolver } from './resolver/flowers';
 import { AudioVideoResolver } from './resolver/audiovideo';
+import { CoffeeRoomResolver } from './resolver/coffeeroom';
 
 dotenv.config();
 
@@ -71,6 +72,7 @@ const main = async () => {
             LayoutResolver,
             FlowersResolver,
             AudioVideoResolver,
+            CoffeeRoomResolver
         ],
         // create a .gql schema file
         emitSchemaFile: true,

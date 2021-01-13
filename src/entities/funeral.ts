@@ -24,6 +24,7 @@ import { Advertisement } from './advertisement';
 import { LayOut } from './layOut';
 import { Flowers } from './flowers';
 import { AudioVideo } from './audiovideo';
+import { CoffeeRoom } from './coffeeroom';
 
 @ObjectType({ description: 'The funeral model' })
 export class Funeral {
@@ -124,7 +125,11 @@ export class Funeral {
 
     @Field(_type => Appointment, { nullable: true })
     @Property({ required: false })
-    appointments?: Appointment;    
+    appointments?: Appointment;
+
+    @Field(_type => CoffeeRoom, { nullable: true })
+    @Property({ required: false })
+    coffeeroom?: CoffeeRoom;
 }
 
 export const FuneralModel = getModelForClass(Funeral);
