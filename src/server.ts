@@ -34,12 +34,21 @@ import { AdvertisementResolver } from './resolver/advertisement';
 import { LayoutResolver } from './resolver/layOut';
 import { FlowersResolver } from './resolver/flowers';
 import { AudioVideoResolver } from './resolver/audiovideo';
-
 import { googleAuth, googleAuthWithToken } from './auth/googleAuthToken'
+import { EmailResolver } from './resolver/email/resolver';
 
 dotenv.config();
 
-const { PORT, MONGOATLASUSERNAME, MONGOATLASPASSWORD, MONGOATLASDBNAME, SESSION_SECRET, ENVIRONMENT } = process.env;
+export const {
+    PORT,
+    MONGOATLASUSERNAME,
+    MONGOATLASPASSWORD,
+    MONGOATLASDBNAME,
+    SESSION_SECRET,
+    ENVIRONMENT,
+    GOOGLE_CLIENT_SECRET,
+    GOOGLE_CLIENT_ID,
+    } = process.env;
 
 const main = async () => {
     // create the express server
@@ -73,6 +82,7 @@ const main = async () => {
             LayoutResolver,
             FlowersResolver,
             AudioVideoResolver,
+            EmailResolver
         ],
         // create a .gql schema file
         emitSchemaFile: true,
@@ -128,9 +138,6 @@ const main = async () => {
             useCreateIndex: true,
         }
     );
-
-    console.log(googleAuth());
-
     // apply the middleware of our Apollo server to the Express app
     // @ts-ignore
     server.applyMiddleware({ app });
