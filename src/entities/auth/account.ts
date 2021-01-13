@@ -26,6 +26,9 @@ export class Account {
     currentToken?: string;
 
     @Property()
+    gmailCode?: string;
+
+    @Property()
     // fear not, this is hashed and well, only saved as a string
     password: string;
 

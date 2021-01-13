@@ -143,7 +143,7 @@ const main = async () => {
         console.log(`Apollo Server on http://localhost:${PORT}/graphql`);
     });
 
-    app.get('/google/callback', async function (req: { query: { code: any; }; }, res: any) {
+    app.get('/gmail-webhook', async (req: { query: { code: any; }; }, res: any) => {
         const code = req.query.code;
 
         if (code) {
@@ -151,6 +151,8 @@ const main = async () => {
         } else {
             console.log("no code found")
         }
+
+        res.send(200);
     })
 
 }
