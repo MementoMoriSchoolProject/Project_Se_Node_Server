@@ -35,7 +35,7 @@ import { LayoutResolver } from './resolver/layOut';
 import { FlowersResolver } from './resolver/flowers';
 import { AudioVideoResolver } from './resolver/audiovideo';
 
-import { googleAuth } from './auth/googleAuthToken'
+import { googleAuth, googleAuthWithToken } from './auth/googleAuthToken'
 
 dotenv.config();
 
@@ -142,6 +142,17 @@ const main = async () => {
     app.listen({ port: PORT }, () => {
         console.log(`Apollo Server on http://localhost:${PORT}/graphql`);
     });
+
+    app.get('/google/callback', async function (req: { query: { code: any; }; }, res: any) {
+        const code = req.query.code;
+
+        if (code) {
+            googleAuthWithToken(code);
+        } else {
+            console.log("no code found")
+        }
+    })
+
 }
 
 main().catch((error) => {
