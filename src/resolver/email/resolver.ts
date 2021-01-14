@@ -60,10 +60,6 @@ export class EmailResolver {
         });
     }
 
-    refreshAccessToken(refreshToken: string) {
-
-    }
-
     @Authorized()
     @Mutation(_returns => String, { nullable: true })
     async authorizeGoogleForEmail(@Ctx() context: Context, @Arg('redirectUri') redirectFrontend: string): Promise<string> {

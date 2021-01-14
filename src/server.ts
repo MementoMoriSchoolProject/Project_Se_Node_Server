@@ -85,7 +85,7 @@ const main = async () => {
             LayoutResolver,
             FlowersResolver,
             AudioVideoResolver,
-            EmailResolver
+            EmailResolver,
             CoffeeRoomResolver
         ],
         // create a .gql schema file
