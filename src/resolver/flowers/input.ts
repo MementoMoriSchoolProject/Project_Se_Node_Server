@@ -42,7 +42,7 @@ export class PersistFlowersInput {
     deliveryLocation?: string;
 
     @Field({ nullable: true })
-    adress?: string;
+    address?: string;
 
     @Field({ nullable: true })
     postalCode?: string;
