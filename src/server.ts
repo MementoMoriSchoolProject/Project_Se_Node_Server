@@ -1,6 +1,6 @@
 import Express from 'express';
-import { buildSchema } from 'type-graphql';
-import { ApolloServer } from 'apollo-server-express';
+import { buildSchema, Mutation } from 'type-graphql';
+import { ApolloServer, gql } from 'apollo-server-express';
 import cors from 'cors';
 import _ from 'lodash';
 import mongoose from 'mongoose';
@@ -34,11 +34,24 @@ import { AdvertisementResolver } from './resolver/advertisement';
 import { LayoutResolver } from './resolver/layOut';
 import { FlowersResolver } from './resolver/flowers';
 import { AudioVideoResolver } from './resolver/audiovideo';
+import { EmailResolver } from './resolver/email/resolver';
+import { AccountModel } from './entities/auth';
+import { OAuth2Client } from 'google-auth-library';
 import { CoffeeRoomResolver } from './resolver/coffeeroom';
 
 dotenv.config();
 
-const { PORT, MONGOATLASUSERNAME, MONGOATLASPASSWORD, MONGOATLASDBNAME, SESSION_SECRET, ENVIRONMENT } = process.env;
+export const {
+    PORT,
+    MONGOATLASUSERNAME,
+    MONGOATLASPASSWORD,
+    MONGOATLASDBNAME,
+    SESSION_SECRET,
+    ENVIRONMENT,
+    GOOGLE_CLIENT_SECRET,
+    GOOGLE_CLIENT_ID,
+} = process.env;
+const GMAIL_AUTH_WEBHOOK_URL = 'http://localhost:8000/gmail-webhook';
 
 const main = async () => {
     // create the express server
@@ -72,6 +85,7 @@ const main = async () => {
             LayoutResolver,
             FlowersResolver,
             AudioVideoResolver,
+            EmailResolver,
             CoffeeRoomResolver
         ],
         // create a .gql schema file
@@ -128,7 +142,6 @@ const main = async () => {
             useCreateIndex: true,
         }
     );
-
     // apply the middleware of our Apollo server to the Express app
     // @ts-ignore
     server.applyMiddleware({ app });
@@ -139,6 +152,27 @@ const main = async () => {
     // fire up the server
     app.listen({ port: PORT }, () => {
         console.log(`Apollo Server on http://localhost:${PORT}/graphql`);
+    });
+
+    // webhook for google return uri
+    app.get('/gmail-webhook', async (req: any, res: any) => {
+        const code = req.query.code;
+        const state = JSON.parse(decodeURI(req.query.state));
+
+        const user = await AccountModel.findById(state.id);
+
+        const client = new OAuth2Client(GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, GMAIL_AUTH_WEBHOOK_URL);
+        const { tokens } = await client.getToken(code);
+
+        if (code && user) {
+            await AccountModel.updateOne(
+                { _id: state.id },
+                { gmailCode: JSON.stringify(tokens) }
+            )
+            res.redirect(state.redirectFrontend)
+        } else {
+            res.send(404).json("no code found")
+        };
     });
 }
 
