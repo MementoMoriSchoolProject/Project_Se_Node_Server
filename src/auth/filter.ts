@@ -20,6 +20,8 @@ export const authChecker: AuthChecker<Context, RoleType> = async (
         // if user is not null, they're authenticated
         // perhaps later we will check whether or not the given roles apply to this user
         if (roles.length > 0) {
+            console.log('Roles', roles);
+            console.log(user.gmailCode);
             for (const role of roles) {
                 switch (role) {
                     case RoleType.EMAIL:

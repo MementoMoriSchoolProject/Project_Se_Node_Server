@@ -36,6 +36,7 @@ import { FlowersResolver } from './resolver/flowers';
 import { AudioVideoResolver } from './resolver/audiovideo';
 import { EmailResolver } from './resolver/email/resolver';
 import { AccountModel } from './entities/auth';
+import { OAuth2Client } from 'google-auth-library';
 
 dotenv.config();
 
@@ -49,6 +50,7 @@ export const {
     GOOGLE_CLIENT_SECRET,
     GOOGLE_CLIENT_ID,
 } = process.env;
+const GMAIL_AUTH_WEBHOOK_URL = 'http://localhost:8000/gmail-webhook';
 
 const main = async () => {
     // create the express server
@@ -153,13 +155,19 @@ const main = async () => {
     // webhook for google return uri
     app.get('/gmail-webhook', async (req: any, res: any) => {
         const code = req.query.code;
+        const state = JSON.parse(decodeURI(req.query.state));
 
-        const user = await AccountModel.findById(req.query.id);
+        const user = await AccountModel.findById(state.id);
+
+        const client = new OAuth2Client(GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, GMAIL_AUTH_WEBHOOK_URL);
+        const { tokens } = await client.getToken(code);
 
         if (code && user) {
-            user.gmailCode = code;
-            user.save();
-            res.redirect(req.query.redirect)
+            await AccountModel.updateOne(
+                { _id: state.id },
+                { gmailCode: JSON.stringify(tokens) }
+            )
+            res.redirect(state.redirectFrontend)
         } else {
             res.send(404).json("no code found")
         };

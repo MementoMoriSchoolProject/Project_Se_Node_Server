@@ -36,7 +36,7 @@ export class Email {
         this.from = headers.find(header => header.name === 'From').value;
         this.to = headers.find(header => header.name === 'To').value;
         this.labels = message.labelIds;
-        this.content = message.payload.parts.find(part => part.mimeType === 'text/html').body.data;
+        this.content = message.payload.parts?.find(part => part.mimeType === 'text/html')?.body?.data;
         return this;
     }
 }
@@ -44,10 +44,11 @@ export class Email {
 @ObjectType()
 export class EmailList {
 
-    constructor(amount: number, page: number) {
+    constructor(amount: number, page: number, query: string) {
         this.page = page;
         this.amount = amount;
         this.emails = [];
+        this.query = query;
     }
 
     @Field(() => [Email], { defaultValue: [] })
@@ -58,4 +59,7 @@ export class EmailList {
 
     @Field()
     amount: number;
+
+    @Field()
+    query: string;
 }

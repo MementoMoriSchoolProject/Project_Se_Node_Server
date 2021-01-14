@@ -8,7 +8,6 @@ import { RoleType } from '../../auth/filter';
 import { EmailInput } from './input';
 import { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET } from '../../server';
 
-const REDIRECT_URL = "http://localhost:8000/google/callback"
 const SCOPES = ['https://www.googleapis.com/auth/gmail.readonly'];
 const GMAIL_AUTH_WEBHOOK_URL = 'http://localhost:8000/gmail-webhook';
 
@@ -20,15 +19,16 @@ export class EmailResolver {
     async emails(@Ctx() context: Context, @Arg('input') input: EmailInput): Promise<EmailList> {
         const user = await AccountModel.findById(context.decodedToken.id);
 
-        const oauth2Client = new OAuth2Client(GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, REDIRECT_URL);
-
-        const { tokens } = await oauth2Client.getToken(user.gmailCode);
-        oauth2Client.setCredentials(tokens);
-
+        const oauth2Client = new OAuth2Client(GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, GMAIL_AUTH_WEBHOOK_URL);
+        
+        oauth2Client.setCredentials(JSON.parse(user.gmailCode));
+        
         const gmail = google.gmail({ version: 'v1', auth: oauth2Client });
+        
+        const labelIds = input.labels.length > 0 ? input.labels : undefined;
 
-        // TODO: Finish pagination, total amount should be sent to the frontend too etc
-        const request = await gmail.users.messages.list({ userId: 'me', labelIds: input.labels, q: input.query });
+        const request = await gmail.users.messages.list({ userId: 'me', labelIds, q: input.query });        
+
         const emails = request.data.messages.map(async ({ id }) => {
             const message = (
                 await gmail.users.messages.get({
@@ -40,23 +40,43 @@ export class EmailResolver {
         });
 
         return new Promise((resolve, reject) => {
-            const list = new EmailList(emails.length, input.page);
-            emails.forEach(email => {
-                email
-                    .then(resolvedEmail => list.emails.push(resolvedEmail))
-                    .catch(error => reject(error))
-            })
-            resolve(list);
-        })
+
+            const list = new EmailList(emails.length, input.page, input.query);
+
+            let index = 0;
+            const resolveEmail = () => {
+                if (index >= emails.length) {
+                    resolve(list);
+                } else {
+                    emails[index].then(resolvedEmail => {
+                        list.emails.push(resolvedEmail);
+                        index++;
+                        resolveEmail();
+                    }).catch(err => reject(err));
+                }
+            }
+
+            resolveEmail()
+        });
+    }
+
+    refreshAccessToken(refreshToken: string) {
+
     }
 
     @Authorized()
     @Mutation(_returns => String, { nullable: true })
-    async authorizeGoogleForEmail(@Ctx() context: Context, @Arg('redirectUri') redirectFrontend: string): Promise<String> {
-        const oauth2Client = new OAuth2Client(GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, REDIRECT_URL);
+    async authorizeGoogleForEmail(@Ctx() context: Context, @Arg('redirectUri') redirectFrontend: string): Promise<string> {
+        const oauth2Client = new OAuth2Client(GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, GMAIL_AUTH_WEBHOOK_URL);
+        const state = {
+            redirectFrontend,
+            id: context.decodedToken.id
+        };
         const authUrl = oauth2Client.generateAuthUrl({
+            access_type: "offline",
             scope: SCOPES,
-            redirect_uri: `${GMAIL_AUTH_WEBHOOK_URL}?redirect=${encodeURI(redirectFrontend)}&id=${context.decodedToken.id}`
+            state: encodeURI(JSON.stringify(state)),
+            redirect_uri: GMAIL_AUTH_WEBHOOK_URL
         });
         return authUrl;
     }
