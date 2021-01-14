@@ -37,6 +37,7 @@ import { AudioVideoResolver } from './resolver/audiovideo';
 import { EmailResolver } from './resolver/email/resolver';
 import { AccountModel } from './entities/auth';
 import { OAuth2Client } from 'google-auth-library';
+import { CoffeeRoomResolver } from './resolver/coffeeroom';
 
 dotenv.config();
 
@@ -85,6 +86,7 @@ const main = async () => {
             FlowersResolver,
             AudioVideoResolver,
             EmailResolver
+            CoffeeRoomResolver
         ],
         // create a .gql schema file
         emitSchemaFile: true,
